@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 import { BackgroundImage } from './styles/BackgroundImage.styled';
 import { RedButton } from './styles/Button.styled';
 import { Flex } from './styles/Flex.styled';
@@ -16,7 +16,12 @@ const SignUpComponent = () => {
 
 	const navigate = useNavigate();
 	const onSubmit = (data) => {
-		navigate('/login');
+		navigate({
+			pathname: '/login',
+			search: `?${createSearchParams({
+				query: 'sign up',
+			})}`,
+		});
 	};
 
 	return (

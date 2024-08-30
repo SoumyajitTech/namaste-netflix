@@ -1,6 +1,9 @@
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useSearchParams } from 'react-router-dom';
 import theme from '../utils/customTheme';
+import { auth } from '../utils/firebase.config';
 import { BackgroundImage } from './styles/BackgroundImage.styled';
 import { RedButton, TransperentButton } from './styles/Button.styled';
 import { Grid } from './styles/Grid.styled';
@@ -10,6 +13,10 @@ import { Login, LoginForm } from './styles/Login.styled';
 
 const LoginComponent = () => {
 	const [signInWithPassword, setSignInWithPassword] = useState(true);
+	const [loginParam, setLoginParam] = useSearchParams();
+
+	const isSignUpPage = loginParam.get('query') === 'sign up';
+
 	const {
 		register,
 		handleSubmit,
@@ -19,6 +26,49 @@ const LoginComponent = () => {
 
 	const handleFormSubmission = (data) => {
 		console.log(data);
+
+		if (isSignUpPage) {
+			signUpUser(data.email, data.password);
+		} else {
+			loginUser(data.email, data.password);
+		}
+	};
+
+	const signUpUser = (email, password) => {
+		createUserWithEmailAndPassword(auth, email, password)
+			.then((userCredential) => {
+				// Signed up
+				const user = userCredential.user;
+				console.log(user);
+			})
+			.catch((error) => {
+				const errorCode = error.code;
+				const errorMessage = error.message;
+				console.log(errorCode + ' ' + errorMessage);
+			});
+	};
+
+	const loginUser = (email, password) => {
+		signInWithEmailAndPassword(auth, email, password)
+			.then((userCredential) => {
+				// Signed up
+				const user = userCredential.user;
+				console.log(user);
+			})
+			.catch((error) => {
+				const errorCode = error.code;
+				const errorMessage = error.message;
+				console.log(errorCode + ' ' + errorMessage);
+			});
+	};
+
+	const loadSignUp = (param = 'sign in') => {
+		if (window.history.pushState) {
+			const updateParam = new URLSearchParams();
+			updateParam.set('query', param);
+			setLoginParam(updateParam);
+			reset();
+		}
 	};
 
 	return (
@@ -31,7 +81,7 @@ const LoginComponent = () => {
 			<LoginForm>
 				<form onSubmit={handleSubmit(handleFormSubmission)}>
 					<Grid>
-						<h1>Sign In</h1>
+						<h1>{isSignUpPage ? 'Sign Up' : 'Sign In'}</h1>
 						<Grid $gap='2'>
 							<Input
 								id='email'
@@ -55,6 +105,49 @@ const LoginComponent = () => {
 								</ErrorMessage>
 							)}
 						</Grid>
+
+						{isSignUpPage && (
+							<>
+								<Grid $gap='2'>
+									<Input
+										id='firstName'
+										name='firstName'
+										type='text'
+										placeholder='First Name'
+										className={errors?.firstName ? 'error' : 'no-error'}
+										autoComplete='off'
+										{...register('firstName', {
+											required: 'First name is required',
+										})}
+									/>
+									{errors.firstName && (
+										<ErrorMessage>
+											<img src={process.env.REACT_APP_IMAGE_BASE_PATH + 'cross.svg'} alt='' />
+											{errors.firstName.message}
+										</ErrorMessage>
+									)}
+								</Grid>
+								<Grid $gap='2'>
+									<Input
+										id='lastName'
+										name='lastName'
+										type='text'
+										placeholder='Last Name'
+										className={errors?.lastName ? 'error' : 'no-error'}
+										autoComplete='off'
+										{...register('lastName', {
+											required: 'Last name is required',
+										})}
+									/>
+									{errors.lastName && (
+										<ErrorMessage>
+											<img src={process.env.REACT_APP_IMAGE_BASE_PATH + 'cross.svg'} alt='' />
+											{errors.lastName.message}
+										</ErrorMessage>
+									)}
+								</Grid>
+							</>
+						)}
 
 						{signInWithPassword ? (
 							<Grid $gap='2'>
@@ -87,26 +180,40 @@ const LoginComponent = () => {
 							{signInWithPassword ? 'Sign In' : 'Send sign-in code'}
 						</RedButton>
 
-						<p>OR</p>
+						{!isSignUpPage && (
+							<>
+								<p>OR</p>
 
-						<TransperentButton
-							type='button'
-							$bgColor={theme.colors.transperentWhite}
-							onClick={() => {
-								reset();
-								setSignInWithPassword(!signInWithPassword);
-							}}>
-							{signInWithPassword ? 'Use a sign-in code' : 'Use Password'}
-						</TransperentButton>
-						<StyledLink to={''}>{signInWithPassword ? 'Forgot password?' : 'Forgot email or phone number?'}</StyledLink>
+								<TransperentButton
+									type='button'
+									$bgColor={theme.colors.transperentWhite}
+									onClick={() => {
+										reset();
+										setSignInWithPassword(!signInWithPassword);
+									}}>
+									{signInWithPassword ? 'Use a sign-in code' : 'Use Password'}
+								</TransperentButton>
+								<StyledLink to={''}>{signInWithPassword ? 'Forgot password?' : 'Forgot email or phone number?'}</StyledLink>
+							</>
+						)}
 					</Grid>
 				</form>
 				<p className='text-left mt-10'>
-					New to Netflix?
+					{isSignUpPage ? 'Have an account already?' : 'New to Netflix?'}
 					{'  '}
-					<StyledLink className='font-bold  text-white' to={'/sign-up'}>
-						Sign up now.
-					</StyledLink>
+					{isSignUpPage ? (
+						<StyledLink
+							className='font-bold  text-white'
+							onClick={() => {
+								loadSignUp();
+							}}>
+							Sign in.
+						</StyledLink>
+					) : (
+						<StyledLink className='font-bold  text-white' to={'/sign-up'}>
+							Sign up now.
+						</StyledLink>
+					)}
 				</p>
 			</LoginForm>
 		</Login>

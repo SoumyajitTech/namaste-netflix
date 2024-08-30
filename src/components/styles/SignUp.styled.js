@@ -40,6 +40,7 @@ export const MainContainer = styled.div`
 		align-items: center;
 		gap: 16px;
 		font-size: 1.3rem;
+		width: 50%;
 		white-space: nowrap;
 
 		svg {
