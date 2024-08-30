@@ -6,6 +6,7 @@ export const RedButton = styled.button`
 	border-radius: 3px;
 	border: ${theme.colors.red};
 	color: ${theme.colors.white};
+	fill: ${theme.colors.white};
 	font-size: 1rem;
 	font-weight: 500;
 	min-height: 2.5rem;

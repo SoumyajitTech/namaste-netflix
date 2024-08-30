@@ -8,13 +8,6 @@ export const Login = styled.div`
 	height: 100vh;
 	overflow: hidden;
 	z-index: 0;
-
-	img {
-		position: absolute;
-		height: 100%;
-		width: 100%;
-		opacity: 0.6;
-	}
 `;
 
 export const LoginForm = styled.div`
@@ -30,6 +23,7 @@ export const LoginForm = styled.div`
 	h1 {
 		margin-bottom: 28px;
 	}
+
 	p,
 	a {
 		text-align: center;

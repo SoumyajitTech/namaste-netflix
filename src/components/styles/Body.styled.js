@@ -1,5 +1,3 @@
 import styled from 'styled-components';
 
-export const Body = styled.div< $primary?: boolean; }>>`
-	display: flex;
-`;
+export const Body = styled.div``;

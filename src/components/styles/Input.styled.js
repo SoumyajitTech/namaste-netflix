@@ -9,9 +9,9 @@ export const Input = styled.input`
 	border-color: rgba(128, 128, 128, 0.7);
 	width: 100%;
 
-	/* &:user-valid {
+	&:user-valid {
 		border-color: green;
-	} */
+	}
 
 	&.error {
 		border-color: ${theme.colors.red};

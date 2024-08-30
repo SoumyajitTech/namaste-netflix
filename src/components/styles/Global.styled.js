@@ -26,6 +26,12 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: 700;
   }
 
+  h3 {
+    font-size: 1rem;
+		font-weight: 400;
+		line-height: 1.5;
+  }
+
   p {
     margin-block-start: 0;
     margin-block-end: 0;

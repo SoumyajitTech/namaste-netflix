@@ -7,5 +7,5 @@ export const Grid = styled.div`
 	-webkit-flex-direction: ${({ $justify }) => $justify || 'center'};
 	-ms-flex-direction: ${({ $justify }) => $justify || 'center'};
 	align-items: ${({ $align }) => $align};
-	gap: ${({ $gap }) => $gap || '16px'};
+	gap: ${({ $gap }) => ($gap ? `${$gap}px` : '16px')};
 `;

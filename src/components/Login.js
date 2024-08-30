@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import theme from '../utils/customTheme';
+import { BackgroundImage } from './styles/BackgroundImage.styled';
 import { RedButton, TransperentButton } from './styles/Button.styled';
 import { Grid } from './styles/Grid.styled';
 import { ErrorMessage, Input } from './styles/Input.styled';
@@ -22,7 +23,7 @@ const LoginComponent = () => {
 
 	return (
 		<Login>
-			<img
+			<BackgroundImage
 				src='https://assets.nflxext.com/ffe/siteui/vlv3/36a4db5b-dec2-458a-a1c0-662fa60e7473/1115a02b-3062-4dcc-aae0-94028a0dcdff/IN-en-20240820-TRIFECTA-perspective_WEB_eeff8a6e-0384-4791-a703-31368aeac39f_medium.jpg'
 				alt='Logo'
 			/>
@@ -31,7 +32,7 @@ const LoginComponent = () => {
 				<form onSubmit={handleSubmit(handleFormSubmission)}>
 					<Grid>
 						<h1>Sign In</h1>
-						<Grid $gap='2px'>
+						<Grid $gap='2'>
 							<Input
 								id='email'
 								name='email'
@@ -56,7 +57,7 @@ const LoginComponent = () => {
 						</Grid>
 
 						{signInWithPassword ? (
-							<Grid $gap='2px'>
+							<Grid $gap='2'>
 								<Input
 									id='password'
 									name='password'
@@ -101,8 +102,9 @@ const LoginComponent = () => {
 					</Grid>
 				</form>
 				<p className='text-left mt-10'>
-					New to Netflix?{' '}
-					<StyledLink className='font-bold' to={''}>
+					New to Netflix?
+					{'  '}
+					<StyledLink className='font-bold  text-white' to={'/sign-up'}>
 						Sign up now.
 					</StyledLink>
 				</p>
