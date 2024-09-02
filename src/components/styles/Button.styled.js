@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import theme from '../../utils/customTheme';
+import theme from '../../Utils/customTheme';
 
 export const RedButton = styled.button`
 	background: ${theme.colors.red};

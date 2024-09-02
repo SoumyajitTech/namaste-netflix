@@ -1,20 +1,20 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useSearchParams } from 'react-router-dom';
-import theme from '../utils/customTheme';
-import { auth } from '../utils/firebase.config';
-import { BackgroundImage } from './styles/BackgroundImage.styled';
-import { RedButton, TransperentButton } from './styles/Button.styled';
-import { Grid } from './styles/Grid.styled';
-import { ErrorMessage, Input } from './styles/Input.styled';
-import { StyledLink } from './styles/Link.styled';
-import { Login, LoginForm } from './styles/Login.styled';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { BackgroundImage } from '../Components/styles/BackgroundImage.styled';
+import { RedButton, TransperentButton } from '../Components/styles/Button.styled';
+import { Grid } from '../Components/styles/Grid.styled';
+import { ErrorMessage, Input } from '../Components/styles/Input.styled';
+import { StyledLink } from '../Components/styles/Link.styled';
+import { Login, LoginForm } from '../Components/styles/Login.styled';
+import theme from '../Utils/customTheme';
+import { auth } from '../Utils/firebase.config';
 
 const LoginComponent = () => {
 	const [signInWithPassword, setSignInWithPassword] = useState(true);
 	const [loginParam, setLoginParam] = useSearchParams();
-
+	const navigate = useNavigate();
 	const isSignUpPage = loginParam.get('query') === 'sign up';
 
 	const {
@@ -25,8 +25,6 @@ const LoginComponent = () => {
 	} = useForm();
 
 	const handleFormSubmission = (data) => {
-		console.log(data);
-
 		if (isSignUpPage) {
 			signUpUser(data.email, data.password);
 		} else {
@@ -39,7 +37,7 @@ const LoginComponent = () => {
 			.then((userCredential) => {
 				// Signed up
 				const user = userCredential.user;
-				console.log(user);
+				navigate('/browse');
 			})
 			.catch((error) => {
 				const errorCode = error.code;
@@ -53,7 +51,7 @@ const LoginComponent = () => {
 			.then((userCredential) => {
 				// Signed up
 				const user = userCredential.user;
-				console.log(user);
+				navigate('/browse');
 			})
 			.catch((error) => {
 				const errorCode = error.code;

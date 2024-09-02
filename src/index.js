@@ -1,14 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 import appRouter from './App.router';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
+import appStore from './Services/store/appStore';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<React.StrictMode>
-		<RouterProvider router={appRouter} />
+		<Provider store={appStore}>
+			<RouterProvider router={appRouter} />
+		</Provider>
 	</React.StrictMode>
 );
 

@@ -15,7 +15,7 @@ export const MainContainer = styled.div`
 	margin: auto;
 	right: 0;
 	left: 0;
-	width: 30%;
+	width: 35%;
 	text-align: center;
 
 	h1 {
@@ -38,9 +38,10 @@ export const MainContainer = styled.div`
 	button {
 		display: flex;
 		align-items: center;
+		justify-content: space-between;
 		gap: 16px;
 		font-size: 1.3rem;
-		width: 50%;
+		width: 40%;
 		white-space: nowrap;
 
 		svg {

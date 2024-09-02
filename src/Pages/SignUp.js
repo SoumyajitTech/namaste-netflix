@@ -1,11 +1,11 @@
 import { useForm } from 'react-hook-form';
 import { createSearchParams, useNavigate } from 'react-router-dom';
-import { BackgroundImage } from './styles/BackgroundImage.styled';
-import { RedButton } from './styles/Button.styled';
-import { Flex } from './styles/Flex.styled';
-import { Grid } from './styles/Grid.styled';
-import { ErrorMessage, Input } from './styles/Input.styled';
-import { MainContainer, SignUp } from './styles/SignUp.styled';
+import { BackgroundImage } from '../Components/styles/BackgroundImage.styled';
+import { RedButton } from '../Components/styles/Button.styled';
+import { Flex } from '../Components/styles/Flex.styled';
+import { Grid } from '../Components/styles/Grid.styled';
+import { ErrorMessage, Input } from '../Components/styles/Input.styled';
+import { MainContainer, SignUp } from '../Components/styles/SignUp.styled';
 
 const SignUpComponent = () => {
 	const {
